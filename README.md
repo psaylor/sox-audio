@@ -32,6 +32,7 @@ SoxCommands accept one or any number of inputs. There are 4 different acceptable
 * a readable stream, e.g. `fs.createReadStream('examples/assets/utterance_0.wav')`, however only one input stream may be used per command 
 * another SoxCommand, which must set its output to `'-p'` for piping the result of this subcommand as input into the main SoxCommand, and it must provide an outputFileType. You may use more than one input of this type in a command.
 * a string for a subcommand to be executed and whose output should be piped as input into the SoxCommand, e.g.`'|sox examples/assets/utterance_0.wav -t wav -p trim 5'`. You may use more than one input of this type in a command.
+
 ````
 // Passing an input to the constructor is the same as calling .input()
 var command1 = SoxCommand('examples/assets/utterance_0.wav')
