@@ -12,9 +12,23 @@ npm install sox-audio
 
 ## Usage
 There are many usage examples in the [examples](./examples) folder, including how to concatenate and trim files, and how to transcode a raw audio stream into a wav audio stream. 
+
 ### Creating a SoxCommand
 The sox-audio module returns a constructor that you can use to instantiate Sox commands. You can instantiate a SoxCommand with or without the `new` operator.
 ````
 var SoxCommand = require('sox-audio');
 var command = SoxCommand();
 ````
+You may pass an input file name or readable stream, and/or an options object, to the constructor.
+````
+var command = SoxCommand('examples/assets/utterance_0.wav');
+var command = SoxCommand(fs.createReadStream('examples/assets/utterance_0.wav'));
+var command = SoxCommand({option: "value", ... });
+````
+
+#### Inputs
+
+#### Outputs
+
+
+#### Effects
