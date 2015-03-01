@@ -82,8 +82,8 @@ command.input(inputStream)
 SoxCommands accept one or any number of outputs. There are 3 different acceptable types of outputs:
 * a file name, e.g. `'examples/outputs/utterance_0.wav'`
 * a writable stream, e.g. `fs.createWriteStream('examples/outputs/utterance_0.wav')`, however only one output stream may be used per command 
-* the string `'-p'` or `'--sox-pipe'`, this can be used in place of an output filename to specify that the Sox command should be used as an input pipe into another Sox command. You may refer to the [sox documentation](http://sox.sourceforge.net/sox.html#FILENAMES)
-* 
+* the string `'-p'` or `'--sox-pipe'`, this can be used in place of an output filename to specify that the Sox command should be used as an input pipe into another Sox command. You may refer to the [sox documentation](http://sox.sourceforge.net/sox.html#FILENAMES) for -p
+
 #### Output Options
 These methods set output-related options on the output that was *most recently added*, so you must add an output before calling these.
 
@@ -97,6 +97,25 @@ These methods set output-related options on the output that was *most recently a
 * **`outputChannels(numChannels)`**  Set the number of audio channels in the audio file
 * **`outputFileType(fileType)`** Set the type of the audio file to output, particularly important when the output is a stream
 
-
+````
+var command = SoxCommand();
+command.input(inputStream)
+  .inputSampleRate(44100)
+  .inputEncoding('signed')
+  .inputBits(16)
+  .inputChannels(1)
+  .inputFileType('raw')
+  .output(outputStream)
+  .outputSampleRate(1600)
+  .outputEncoding('signed')
+  .outputBits(16)
+  .outputChannels(1)
+  .outputFileType('wav');
+````
 
 ### Effects
+SoX can be used to invoke a number of audio 'effects', which should be provided at the end of the command. Multiple effects may be applied by specifying them one after another. You can [learn about all of the effects available to SoX here](http://sox.sourceforge.net/sox.html#EFFECTS). SoxCommand currently providers helpers for some popular effects, and a catch-all method to apply any of the other effects:
+* **`trim(position(+))`**
+* **`combine(method)`**
+* **`concat()`**
+* **`addEffect(effectName, effectOptionsList)`**
