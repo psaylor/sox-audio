@@ -58,12 +58,21 @@ var command3 = SoxCommand()
 #### Input Options
 These methods set input-related options on the input that was *most recently added*, so you must add an input before calling these.
 
-* inputSampleRate(sampleRate)
-* inputBits(bitRate)
-* inputEncoding(encoding)
-* inputChannels(numChannels)
-* inputFileType(fileType)
+* **`inputSampleRate(sampleRate)`**
+* `inputBits(bitRate)`
+* `inputEncoding(encoding)` The audio encoding type
+* `inputChannels(numChannels)`
+* `inputFileType(fileType)`
 
+````
+var command = SoxCommand();
+command.input(inputStream)
+  .inputSampleRate(44100)
+  .inputEncoding('signed')
+  .inputBits(16)
+  .inputChannels(1)
+  .inputFileType('raw');
+````
 
 ### Outputs
 
