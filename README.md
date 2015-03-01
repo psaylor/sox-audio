@@ -58,11 +58,15 @@ var command3 = SoxCommand()
 #### Input Options
 These methods set input-related options on the input that was *most recently added*, so you must add an input before calling these.
 
-* **`inputSampleRate(sampleRate)`**
-* `inputBits(bitRate)`
-* `inputEncoding(encoding)` The audio encoding type
-* `inputChannels(numChannels)`
-* `inputFileType(fileType)`
+* **`inputSampleRate(sampleRate)`** Set the sample rate in Hz (or kHz if appended with a 'k')
+* **`inputBits(bitRate)`**  Set the number of bits in each encoded sample
+* **`inputEncoding(encoding)`** Set the audio encoding type (sometimes needed with file-types that support more than one encoding, like raw or wav). The main available encoding types are:
+  * signed-integer
+  * unsigned-integer
+  * floating-point
+  * for more, see the [sox documentation](http://sox.sourceforge.net/sox.html#OPTIONS) for -e
+* **`inputChannels(numChannels)`**  Set the number of audio channels in the audio file
+* **`inputFileType(fileType)`** Set the type of the audio file
 
 ````
 var command = SoxCommand();
