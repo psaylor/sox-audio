@@ -15,16 +15,16 @@ There are many usage examples in the [examples](./examples) folder, including ho
 
 ### Creating a SoxCommand
 The sox-audio module returns a constructor that you can use to instantiate Sox commands. You can instantiate a SoxCommand with or without the `new` operator.
-````
+```js
 var SoxCommand = require('sox-audio');
 var command = SoxCommand();
-````
+```
 You may pass an input file name or readable stream, and/or an options object, to the constructor.
-````
+```js
 var command = SoxCommand('examples/assets/utterance_0.wav');
 var command = SoxCommand(fs.createReadStream('examples/assets/utterance_0.wav'));
 var command = SoxCommand({option: "value", ... });
-````
+```
 
 ### Inputs
 SoxCommands accept one or any number of inputs. There are 4 different acceptable types of inputs:
@@ -33,7 +33,7 @@ SoxCommands accept one or any number of inputs. There are 4 different acceptable
 * another SoxCommand, which must set its output to `'-p'` for piping the result of this subcommand as input into the main SoxCommand, and it must provide an outputFileType. You may use more than one input of this type in a command.
 * a string for a subcommand to be executed and whose output should be piped as input into the SoxCommand, e.g.`'|sox examples/assets/utterance_0.wav -t wav -p trim 5'`. For this string, follow the format specified in the [SoX documentation](http://sox.sourceforge.net/sox.html#FILENAMES). You may use more than one input of this type in a command.
 
-````
+```js
 // Passing an input to the constructor is the same as calling .input()
 var command1 = SoxCommand('examples/assets/utterance_0.wav')
   .input('examples/assets/utterance_1.wav')
@@ -53,7 +53,7 @@ var trimSubcommand = SoxCommand()
   .trim(5, 35);
 var command3 = SoxCommand()
   .inputSubCommand(trimSubcommand);
-````
+```
 
 #### Input Options
 These methods set input-related options on the input that was *most recently added*, so you must add an input before calling these.
@@ -68,7 +68,7 @@ These methods set input-related options on the input that was *most recently add
 * **`inputChannels(numChannels)`**  Set the number of audio channels in the audio file
 * **`inputFileType(fileType)`** Set the type of the audio file
 
-````
+```js
 var command = SoxCommand();
 command.input(inputStream)
   .inputSampleRate(44100)
@@ -76,7 +76,7 @@ command.input(inputStream)
   .inputBits(16)
   .inputChannels(1)
   .inputFileType('raw');
-````
+```
 
 ### Outputs
 SoxCommands accept one or any number of outputs. There are 3 different acceptable types of outputs:
@@ -97,7 +97,7 @@ These methods set output-related options on the output that was *most recently a
 * **`outputChannels(numChannels)`**  Set the number of audio channels in the audio file
 * **`outputFileType(fileType)`** Set the type of the audio file to output, particularly important when the output is a stream
 
-````
+```js
 var command = SoxCommand();
 command.input(inputStream)
   .inputSampleRate(44100)
@@ -111,7 +111,7 @@ command.input(inputStream)
   .outputBits(16)
   .outputChannels(1)
   .outputFileType('wav');
-````
+```
 
 ### Effects
 SoX can be used to invoke a number of audio 'effects', which should be provided at the end of the command. Multiple effects may be applied by specifying them one after another. You can [learn about all of the effects available to SoX here](http://sox.sourceforge.net/sox.html#EFFECTS). SoxCommand currently providers helpers for some popular effects, and a catch-all method to apply any of the other effects:
