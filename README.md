@@ -104,8 +104,9 @@ command.input(inputStream)
   .inputEncoding('signed')
   .inputBits(16)
   .inputChannels(1)
-  .inputFileType('raw')
-  .output(outputStream)
+  .inputFileType('raw');
+  
+command.output(outputStream)
   .outputSampleRate(1600)
   .outputEncoding('signed')
   .outputBits(16)
@@ -115,7 +116,12 @@ command.input(inputStream)
 
 ### Effects
 SoX can be used to invoke a number of audio 'effects', which should be provided at the end of the command. Multiple effects may be applied by specifying them one after another. You can [learn about all of the effects available to SoX here](http://sox.sourceforge.net/sox.html#EFFECTS). SoxCommand currently providers helpers for some popular effects, and a catch-all method to apply any of the other effects:
-* **`trim(position(+))`**
+* **`trim(position(+))`** Cuts portions out of the audio. Any number of _positions_ may be given, either individually or as a list, and each _position_ can be a number or formatted string. Once the first _position_ is reached, the effect alternates between copying and discarding the audio at each _position_. Using 0 for the first _position_ allows copying from the beginning of the audio. The format for a _position_ can be:
+  * `5.2` a number indicating 5.2 seconds from the previous _position_ or the start of the audio if there was no previous
+  * `'15:25.30'` a string indicating 15 minutes, 25 seconds, and 30 milliseconds from the previous _position_ or the start of the audio file
+  * `'=2:05'` a string indicating 2 minutes and 5 seconds into the audio file, relative to the start of the audio
+  * `'-3:30'` a string indicating 3 minutes and 30 seconds before the end of the audio file
+  * `'=1250s'` a string indicate 1250 samples into the audio file
 * **`combine(method)`**
 * **`concat()`**
 * **`addEffect(effectName, effectOptionsList)`**
