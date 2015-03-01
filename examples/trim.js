@@ -1,7 +1,7 @@
 var SoxCommand = require('../index');
 var util = require('util');
 var fs = require('fs');
-var TimeFormat = require('../utils').TimeFormat;
+var TimeFormat = SoxCommand.TimeFormat;
 
 /* Trims the input file to start at startTimeSeconds and end at endTimeSeconds,
 where both times are relative to the beginning of the file (thus they are 

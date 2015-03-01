@@ -3,7 +3,7 @@ var SoxCommand = require('../index');
 var util = require('util');
 var fs = require('fs');
 var Stream = require('stream');
-var TimeFormat = require('../utils').TimeFormat;
+var TimeFormat = SoxCommand.TimeFormat;
 
 var addStandardListeners = function(command) {
 	command.on('start', function(commandLine) {
@@ -140,9 +140,16 @@ var runExamples = function() {
 	var outputFileName3 = './outputs/trim_and_concat2.wav';
 	var outputPipe = fs.createWriteStream('./outputs/concat_and_pipe.wav');
 
+	console.log('\nConcatenate example ');
 	concatenateExample(fileNameList, outputFileName);
+
+	console.log('\nConcatenate and trim example');
 	concatenateAndTrimExample(fileNameList, 4.03, 2.54, outputFileName2);
+
+	console.log('\nAnother concatenate and trim example');
 	concatenateAndTrimAnotherExample(fileNameList, 4.03, 2.54, outputFileName3);
+	
+	console.log('\nConcatenate and pipe example');
 	concatenateAndPipeExample(fileNameList.slice(0, -1), outputPipe);
 };
 
