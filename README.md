@@ -177,5 +177,37 @@ command.on('end', function() {
 command.run();
 ```
 
+### Selected Examples
+The following example concatenates three audio files while trimming off the first 5 seconds of the first file, and the last 10 seconds of the last file through subcommands.
+```js
+var SoxCommand = require('sox-audio');
+var TimeFormat = SoxCommand.TimeFormat;
+
+var command = SoxCommand();
+
+var startTimeFormatted = TimeFormat.formatTimeAbsolute(5);
+var endTimeFormatted = TimeFormat.formatTimeRelativeToEnd(10);
+
+var trimFirstFileSubCommand = SoxCommand()
+	.input('./assets/utterance_0.wav')
+	.output('-p')
+	.outputFileType('wav')
+	.trim(startTimeFormatted);
+
+var trimLastFileSubCommand = SoxCommand()
+	.input('./assets/utterance_2.wav')
+	.output('-p')
+	.outputFileType('wav')
+	.trim(0, endTimeFormatted);
+
+command.inputSubCommand(trimFirstFileSubCommand)
+  .input('./assets/utterance_1.wav');
+  .inputSubCommand(trimLastFileSubCommand)
+	.output(outputFileName)
+	.concat();
+
+command.run();
+```
+
 ## License
 This code is under the MIT License. 
