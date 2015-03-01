@@ -89,24 +89,24 @@ var concatenateAndTrimAnotherExample = function(fileNameList, startTimeSeconds, 
 	var startTimeFormatted = TimeFormat.formatTimeAbsolute(startTimeSeconds);
 	var endTimeFormatted = TimeFormat.formatTimeAbsolute(endTimeSeconds);
 
-	var firstFileSubCommand = SoxCommand()
+	var trimFirstFileSubCommand = SoxCommand()
 		.input(fileNameList[0])
 		.output('-p')
 		.outputFileType('wav')
 		.trim(startTimeFormatted);
 
-	var lastFileSubCommand = SoxCommand()
+	var trimLastFileSubCommand = SoxCommand()
 		.input(fileNameList[fileNameList.length - 1])
 		.output('-p')
 		.outputFileType('wav')
 		.trim(0, endTimeFormatted);
 
-	command.inputSubCommand(firstFileSubCommand);
+	command.inputSubCommand(trimFirstFileSubCommand);
 
 	fileNameList.slice(1, -1).forEach(function(fileName) {
 		command.input(fileName);
 	});
-	command.inputSubCommand(lastFileSubCommand)
+	command.inputSubCommand(trimLastFileSubCommand)
 		.output(outputFileName)
 		.concat();
 
