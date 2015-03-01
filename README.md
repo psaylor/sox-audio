@@ -209,5 +209,21 @@ command.inputSubCommand(trimFirstFileSubCommand)
 command.run();
 ```
 
+In this example, a 44.1 kHz raw audio stream is converted on the fly to a 16 kHz wav audio stream.
+```js
+var command = SoxCommand();
+command.input(inputStream)
+	.inputSampleRate('44.1k')
+	.inputEncoding('signed')
+	.inputBits(16)
+	.inputChannels(1)
+	.inputFileType('raw')
+	.output(outputPipe)
+	.outputFileType('wav')
+	.outputSampleRate('16k');
+
+command.run();
+```
+
 ## License
 This code is under the MIT License. 
