@@ -122,6 +122,12 @@ SoX can be used to invoke a number of audio 'effects', which should be provided 
   * `'=2:05'` a string indicating 2 minutes and 5 seconds into the audio file, relative to the start of the audio
   * `'-3:30'` a string indicating 3 minutes and 30 seconds before the end of the audio file
   * `'=1250s'` a string indicate 1250 samples into the audio file
-* **`combine(method)`**
-* **`concat()`**
-* **`addEffect(effectName, effectOptionsList)`**
+* **`combine(method)`** Select the input file combining method, which can be one of the following strings:
+  * `'concatenate'`
+  * `'sequence'`
+  * `'mix'`
+  * `'mix-power'`
+  * `'merge'`
+  * `'multiply'`
+* **`concat()`**  A shorthand for applying the concatenate combining method. The audio from each input will be concatenated in the order added to the command to form the output file. The input files must have the same number of channels.
+* **`addEffect(effectName, effectOptionsList)`**  Apply the SoX effect with `effectName` using the command line options provided in `effectOptionsList`. Please [refer to the SoX documentation on all available effects and their usages](http://sox.sourceforge.net/sox.html#EFFECTS).
