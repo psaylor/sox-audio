@@ -28,4 +28,4 @@ node_modules
 .lock-wscript
 
 _*.js
-./examples/outputs
+examples/outputs/*
