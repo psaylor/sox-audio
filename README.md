@@ -52,10 +52,22 @@ var trimSubcommand = SoxCommand()
   .output('-p')
   .trim(5, 35);
 var command3 = SoxCommand()
-  .input(trimSubcommand);
+  .inputSubCommand(trimSubcommand);
 ````
 
+#### Input Options
+These methods set input-related options on the input that was *most recently added*, so you must add an input before calling these.
+
+* inputSampleRate(sampleRate)
+* inputBits(bitRate)
+* inputEncoding(encoding)
+* inputChannels(numChannels)
+* inputFileType(fileType)
+
+
 ### Outputs
+
+#### Output Options
 
 
 ### Effects
