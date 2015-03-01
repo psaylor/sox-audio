@@ -139,3 +139,43 @@ A shorthand for applying the concatenate combining method. The audio from each i
 
 #### `addEffect(effectName, effectOptionsList)`
 A catch-all method allowing you to apply any SoX effect. Apply the SoX effect with `effectName` using the command line options provided in `effectOptionsList`. Please [refer to the SoX documentation on all available effects and their usages](http://sox.sourceforge.net/sox.html#EFFECTS).
+
+### Running a SoxCommand
+Starting the SoxCommand is as easy as 
+```js
+command.run();
+```
+Of course, you need to fully specify the command first, with inputs, outputs, and optional effects. You can also set listeners on your command for `prepare`, `start`, `progress`, `error`, and `end` events.
+```js
+var command = SoxCommand()
+  .input(...)
+  .output(...)
+  .addEffect(..., [...]);
+  
+command.on('prepare', function(args) {
+  console.log('Preparing sox command with args ' + args.join(' '));
+});
+
+command.on('start', function(commandLine) {
+  console.log('Spawned sox with command ' + commandLine);
+});
+
+command.on('progress', function(progress) {
+  console.log('Processing progress: ', progress);
+});
+
+command.on('error', function(err, stdout, stderr) {
+  console.log('Cannot process audio: ' + err.message);
+  console.log('Sox Command Stdout: ', stdout);
+  console.log('Sox Command Stderr: ', stderr)
+});
+
+command.on('end', function() {
+  console.log('Sox command succeeded!');
+});
+
+command.run();
+```
+
+## License
+This code is under the MIT License. 
