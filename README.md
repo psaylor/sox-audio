@@ -79,8 +79,24 @@ command.input(inputStream)
 ````
 
 ### Outputs
-
+SoxCommands accept one or any number of outputs. There are 3 different acceptable types of outputs:
+* a file name, e.g. `'examples/outputs/utterance_0.wav'`
+* a writable stream, e.g. `fs.createWriteStream('examples/outputs/utterance_0.wav')`, however only one output stream may be used per command 
+* the string `'-p'` or `'--sox-pipe'`, this can be used in place of an output filename to specify that the Sox command should be used as an input pipe into another Sox command. You may refer to the [sox documentation](http://sox.sourceforge.net/sox.html#FILENAMES)
+* 
 #### Output Options
+These methods set output-related options on the output that was *most recently added*, so you must add an output before calling these.
+
+* **`outputSampleRate(sampleRate)`** Set the sample rate in Hz (or kHz if appended with a 'k')
+* **`outputBits(bitRate)`**  Set the number of bits in each encoded sample
+* **`outputEncoding(encoding)`** Set the audio encoding type (sometimes needed with file-types that support more than one encoding, like raw or wav). The main available encoding types are:
+  * signed-integer
+  * unsigned-integer
+  * floating-point
+  * for more, see the [sox documentation](http://sox.sourceforge.net/sox.html#OPTIONS) for -e
+* **`outputChannels(numChannels)`**  Set the number of audio channels in the audio file
+* **`outputFileType(fileType)`** Set the type of the audio file to output, particularly important when the output is a stream
+
 
 
 ### Effects
