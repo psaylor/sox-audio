@@ -24,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/psaylor/sox-audio/issues"
   },
-  "homepage": "https://github.com/psaylor/sox-audio"
+  "homepage": "https://github.com/psaylor/sox-audio",
+  "dependencies": {
+    "through": "^2.3.6"
+  }
 }
