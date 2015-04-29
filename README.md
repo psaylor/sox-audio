@@ -225,5 +225,10 @@ command.input(inputStream)
 command.run();
 ```
 
+## Development
+Check out this repo, make your changes, commit the code and then publish a new release on npm:
+* https://gist.github.com/coolaj86/1318304
+* https://quickleft.com/blog/creating-and-publishing-a-node-js-module/
+
 ## License
 This code is under the MIT License. 
