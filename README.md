@@ -11,7 +11,7 @@ npm install sox-audio
 ````
 
 ## Usage
-There are many usage examples in the [examples](./examples) folder, including how to concatenate and trim files, and how to transcode a raw audio stream into a wav audio stream. 
+There are many usage examples in the [examples](./examples) folder, including how to concatenate and trim files, and how to transcode a raw audio stream into a wav audio stream.
 
 ### Creating a SoxCommand
 The sox-audio module returns a constructor that you can use to instantiate Sox commands. You can instantiate a SoxCommand with or without the `new` operator.
@@ -29,7 +29,7 @@ var command = SoxCommand({option: "value", ... });
 ### Inputs
 SoxCommands accept one or any number of inputs. There are 4 different acceptable types of inputs:
 * a file name, e.g. `'examples/assets/utterance_0.wav'`
-* a readable stream, e.g. `fs.createReadStream('examples/assets/utterance_0.wav')`, however only one input stream may be used per command 
+* a readable stream, e.g. `fs.createReadStream('examples/assets/utterance_0.wav')`, however only one input stream may be used per command
 * another SoxCommand, which must set its output to `'-p'` for piping the result of this subcommand as input into the main SoxCommand, and it must provide an outputFileType. You may use more than one input of this type in a command.
 * a string for a subcommand to be executed and whose output should be piped as input into the SoxCommand, e.g.`'|sox examples/assets/utterance_0.wav -t wav -p trim 5'`. For this string, follow the format specified in the [SoX documentation](http://sox.sourceforge.net/sox.html#FILENAMES). You may use more than one input of this type in a command.
 
@@ -39,12 +39,12 @@ var command1 = SoxCommand('examples/assets/utterance_0.wav')
   .input('examples/assets/utterance_1.wav')
   .input(fs.createReadStream('examples/assets/utterance_2.wav'));
 
-// A string for a subcommand may be passed as input, following the format '|program [options]'. 
-// The program in the subcommand does not have to be sox, it could be any program whose stdout 
+// A string for a subcommand may be passed as input, following the format '|program [options]'.
+// The program in the subcommand does not have to be sox, it could be any program whose stdout
 // you want to use as an input file.
 var command2 = SoxCommand()
   .input('|sox examples/assets/utterance_0.wav -t wav -p trim 5 35');
-  
+
 // We can implement the same behavior as command2 using another SoxCommand as a subcommand
 var trimSubcommand = SoxCommand()
   .input('examples/assets/utterance_0.wav')
@@ -72,7 +72,7 @@ These methods set input-related options on the input that was *most recently add
 var command = SoxCommand();
 command.input(inputStream)
   .inputSampleRate(44100)
-  .inputEncoding('signed')
+  .inputEncoding('signed-integer')
   .inputBits(16)
   .inputChannels(1)
   .inputFileType('raw');
@@ -81,7 +81,7 @@ command.input(inputStream)
 ### Outputs
 SoxCommands accept one or any number of outputs. There are 3 different acceptable types of outputs:
 * a file name, e.g. `'examples/outputs/utterance_0.wav'`
-* a writable stream, e.g. `fs.createWriteStream('examples/outputs/utterance_0.wav')`, however only one output stream may be used per command 
+* a writable stream, e.g. `fs.createWriteStream('examples/outputs/utterance_0.wav')`, however only one output stream may be used per command
 * the string `'-p'` or `'--sox-pipe'`, this can be used in place of an output filename to specify that the Sox command should be used as an input pipe into another Sox command. You may refer to the [sox documentation](http://sox.sourceforge.net/sox.html#FILENAMES) for -p
 
 #### Output Options
@@ -101,14 +101,14 @@ These methods set output-related options on the output that was *most recently a
 var command = SoxCommand();
 command.input(inputStream)
   .inputSampleRate(44100)
-  .inputEncoding('signed')
+  .inputEncoding('signed-integer')
   .inputBits(16)
   .inputChannels(1)
   .inputFileType('raw');
-  
+
 command.output(outputStream)
   .outputSampleRate(1600)
-  .outputEncoding('signed')
+  .outputEncoding('signed-integer')
   .outputBits(16)
   .outputChannels(1)
   .outputFileType('wav');
@@ -117,14 +117,14 @@ command.output(outputStream)
 ### Effects
 SoX can be used to invoke a number of audio 'effects', which should be provided at the end of the command. Multiple effects may be applied by specifying them one after another. You can [learn about all of the effects available to SoX here](http://sox.sourceforge.net/sox.html#EFFECTS). SoxCommand currently providers helpers for some popular effects, and a catch-all method to apply any of the other effects.
 
-#### `trim(position(+))` 
+#### `trim(position(+))`
 Cuts portions out of the audio. Any number of _positions_ may be given, either individually or as a list, and each _position_ can be a number or formatted string. Once the first _position_ is reached, the effect alternates between copying and discarding the audio at each _position_. Using 0 for the first _position_ allows copying from the beginning of the audio. The format for a _position_ can be:
   * `5.2` a number indicating 5.2 seconds from the previous _position_ or the start of the audio if there was no previous
   * `'15:25.30'` a string indicating 15 minutes, 25 seconds, and 30 milliseconds from the previous _position_ or the start of the audio file
   * `'=2:05'` a string indicating 2 minutes and 5 seconds into the audio file, relative to the start of the audio
   * `'-3:30'` a string indicating 3 minutes and 30 seconds before the end of the audio file
   * `'=1250s'` a string indicate 1250 samples into the audio file
-  
+
 #### `combine(method)`
 Select the input file combining method, which can be one of the following strings:
   * `'concatenate'`
@@ -133,7 +133,7 @@ Select the input file combining method, which can be one of the following string
   * `'mix-power'`
   * `'merge'`
   * `'multiply'`
-  
+
 #### `concat()`
 A shorthand for applying the concatenate combining method. The audio from each input will be concatenated in the order added to the command to form the output file. The input files must have the same number of channels.
 
@@ -141,7 +141,7 @@ A shorthand for applying the concatenate combining method. The audio from each i
 A catch-all method allowing you to apply any SoX effect. Apply the SoX effect with `effectName` using the command line options provided in `effectOptionsList`. Please [refer to the SoX documentation on all available effects and their usages](http://sox.sourceforge.net/sox.html#EFFECTS).
 
 ### Running a SoxCommand
-Starting the SoxCommand is as easy as 
+Starting the SoxCommand is as easy as
 ```js
 command.run();
 ```
@@ -151,7 +151,7 @@ var command = SoxCommand()
   .input(...)
   .output(...)
   .addEffect(..., [...]);
-  
+
 command.on('prepare', function(args) {
   console.log('Preparing sox command with args ' + args.join(' '));
 });
@@ -236,4 +236,4 @@ $ npm publish
 * https://quickleft.com/blog/creating-and-publishing-a-node-js-module/
 
 ## License
-This code is under the MIT License. 
+This code is under the MIT License.
